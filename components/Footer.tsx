@@ -1,6 +1,6 @@
 import React from 'react';
 import { CONTACTS } from '../constants';
-import { Mail, Phone } from 'lucide-react';
+import { Mail, Phone, Info } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -10,30 +10,41 @@ const Footer: React.FC = () => {
           
           <div className="col-span-1 lg:col-span-1">
             <h3 className="text-white text-lg font-bold mb-4">WFG Playbook</h3>
-            <p className="text-sm leading-relaxed mb-4">
-              Providing Canadian WFG advisors with trusted insurance options and exclusive coverage through our partnership with Aon.
+            <p className="text-sm leading-relaxed mb-4 text-slate-400">
+              A comprehensive guide to Aon insurance products for Canadian World Financial Group (WFG) advisors and associates.
             </p>
-            <div className="text-xs text-slate-500">
+            <div className="text-xs text-slate-600 mt-6">
               &copy; {new Date().getFullYear()} WFG Advisor Playbook. <br />All rights reserved.
             </div>
           </div>
 
           <div className="col-span-1 lg:col-span-2">
-            <h3 className="text-white text-lg font-bold mb-6">Contact Support</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <h3 className="text-white text-lg font-bold mb-6">Contact Directory</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {CONTACTS.map((contact, idx) => (
-                <div key={idx} className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
-                  <h4 className="text-red-400 font-semibold mb-2">{contact.department}</h4>
-                  <div className="flex items-center text-sm mb-1">
-                    <Mail size={14} className="mr-2 opacity-70" />
-                    <a href={`mailto:${contact.email}`} className="hover:text-white transition-colors">
-                      {contact.email}
-                    </a>
-                  </div>
+                <div key={idx} className="bg-slate-800/40 p-4 rounded-lg border border-slate-700/50 hover:bg-slate-800 transition-colors">
+                  <h4 className="text-white font-semibold mb-2 text-sm">{contact.department}</h4>
+                  
+                  {contact.email && !contact.email.includes('Option') && (
+                    <div className="flex items-center text-xs mb-1.5 text-slate-400">
+                      <Mail size={12} className="mr-2" />
+                      <a href={`mailto:${contact.email}`} className="hover:text-red-400 transition-colors">
+                        {contact.email}
+                      </a>
+                    </div>
+                  )}
+                  
                   {contact.phone && (
-                    <div className="flex items-center text-sm">
-                      <Phone size={14} className="mr-2 opacity-70" />
+                    <div className="flex items-center text-xs mb-1.5 text-slate-400">
+                      <Phone size={12} className="mr-2" />
                       <span>{contact.phone}</span>
+                    </div>
+                  )}
+
+                  {contact.details && (
+                    <div className="flex items-center text-xs text-red-400 mt-2">
+                      <Info size={12} className="mr-2" />
+                      <span>{contact.details}</span>
                     </div>
                   )}
                 </div>
@@ -41,22 +52,24 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="col-span-1" id="referrals">
+          <div className="col-span-1">
             <h3 className="text-white text-lg font-bold mb-4">Referral Fees</h3>
-            <p className="text-sm leading-relaxed mb-4">
-              Earn referral fees when your clients choose and stay with Aon. Note that referral fee structures and eligibility vary by jurisdiction and product type.
-            </p>
-            <button className="text-sm text-red-400 font-medium hover:text-red-300 underline">
-              View Fee Schedule &rarr;
-            </button>
+            <div className="bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+              <p className="text-sm leading-relaxed mb-4 text-slate-400">
+                Earn referral fees when clients stay with Aon.
+              </p>
+              <p className="text-xs text-slate-500 italic border-t border-slate-700 pt-3">
+                *Referral fees are available in certain jurisdictions only. Fees vary by province and product type.
+              </p>
+            </div>
           </div>
 
         </div>
         
         <div className="mt-16 pt-8 border-t border-slate-800 text-center text-xs text-slate-600">
-          <p>
+          <p className="max-w-3xl mx-auto">
             This website is for informational purposes for WFG Advisors and Associates only. Insurance products are administered by Aon. 
-            Coverage is subject to policy terms and conditions.
+            Coverage is subject to policy terms and conditions. Auto insurance requirements vary by province.
           </p>
         </div>
       </div>
